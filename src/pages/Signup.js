@@ -1,5 +1,5 @@
 import Base from "../components/Base";
-import { Label, Input, FormGroup, Button, Col, Row, Form } from "reactstrap";
+import { Label, Input, FormGroup, Button, Col, Row, Form, FormFeedback } from "reactstrap";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,8 +9,8 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    addressLine1: "",
-    addressLine2: "",
+    address: "",
+    alternateAddress: "",
     city: "",
     state: "",
     zip: "",
@@ -33,8 +33,8 @@ const Signup = () => {
       name: "",
       email: "",
       password: "",
-      addressLine1: "",
-      addressLine2: "",
+      address: "",
+      alternateAddress: "",
       city: "",
       state: "",
       zip: "",
@@ -45,15 +45,26 @@ const Signup = () => {
   const submitForm = (event) => {
     event.preventDefault();
 
+// if(error.isError){
+//   toast.error("Form data is invalid ")
+//   setError({...error,isError:false})
+//   return;
+// }
+
     //validate data
 
     // call server api for sending data
     console.log(data);
     signUp(data).then((response)=>{
       console.log(response)
-      toast("register successfully please login!");
+      toast.success("register successfully please login!");
     }).catch((error)=>{
-      toast("register failed!");
+      // handle error in proper way
+      setError({
+        errors:error,
+        isError:true
+      })
+      toast.error("register failed!");
     })
    
   };
@@ -76,6 +87,7 @@ const Signup = () => {
                   onChange={(e) => handleChange(e, "name")}
                   value={data.name}
                 />
+               
               </FormGroup>
             </Col>
             <Col md={4}>
@@ -89,7 +101,11 @@ const Signup = () => {
                   required
                   onChange={(e) => handleChange(e, "email")}
                   value={data.email}
+                  invalid={error.errors?.response?.data?.email ? true:false}
                 />
+                 <FormFeedback>
+                  {error.errors?.response?.data?.email}
+                </FormFeedback>
               </FormGroup>
             </Col>
             <Col md={4}>
@@ -103,22 +119,30 @@ const Signup = () => {
                   required
                   onChange={(e) => handleChange(e, "password")}
                   value={data.password}
+                  invalid={error.errors?.response?.data?.password ? true:false}
                 />
+                   <FormFeedback>
+                  {error.errors?.response?.data?.password}
+                </FormFeedback>
               </FormGroup>
             </Col>
           </Row>
           <Row>
             <Col md={6}>
               <FormGroup>
-                <Label for="exampleAddress">Address Line 1</Label>
+                <Label for="exampleAddress1">Address Line 1</Label>
                 <Input
-                  id="exampleAddress"
-                  name="address"
+                  id="exampleAddress1"
+                  name="address1"
                   placeholder="enter address here...."
                   required
-                  onChange={(e) => handleChange(e, "addressLine1")}
-                  value={data.addressLine1}
-                />
+                  onChange={(e) => handleChange(e, "address")}
+                  value={data.address}
+                  invalid={error.errors?.response?.data?.password ? true:false}
+             />
+              <FormFeedback>
+                  {error.errors?.response?.data?.password}
+                </FormFeedback>
               </FormGroup>
             </Col>
             <Col md={6}>
@@ -128,9 +152,10 @@ const Signup = () => {
                   id="exampleAddress2"
                   name="address2"
                   placeholder="enter addreess here...."
-                  onChange={(e) => handleChange(e, "addressLine2")}
-                  value={data.addressLine2}
+                  onChange={(e) => handleChange(e, "alternateAddress")}
+                  value={data.alternateAddress}
                 />
+                
               </FormGroup>
             </Col>
           </Row>

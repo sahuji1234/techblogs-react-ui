@@ -4,11 +4,13 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { signIn } from "../services/user-service";
+import { doLogin } from "../auth/index";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // SET DATA
   const [data, setData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -23,22 +25,45 @@ const Login = () => {
 
   const resetData = () => {
     setData({
-      email: "",
+      username: "",
       password: "",
     });
   };
 
+ const navigate = useNavigate()
+
   const submitForm = (event) => {
     event.preventDefault();
 
-    //validate data
+       //validate data
+       if(data.username.trim()===''|| data.password.trim()===''){
+       toast.error("username ore password is blank please fill the details correctly")
+      }
 
-    //call api
-    console.log(data);
-    signIn(data).then((response)=>{
-      toast("Login successfully!");
+
+      //call login api
+       console.log(data);
+       signIn(data).then((response)=>{
+       console.log(response);
+      // save the data to localstorage
+      doLogin(response,()=>{
+        console.log("Login details are save to local storage")
+        // redirect to user dashboard page
+        navigate("/user/dashboard")
+
+      })
+      toast.success("Login successfully!");
+    // redirect to user dashboard page
+
+
     }).catch((error)=>{
-      toast("Login failed please check username and password!");
+      console.log(error);
+      if(error.response.status===400|| error.response.status===404){
+        toast.error(error.response.data.message);
+      }else{
+        toast.error("Login failed please check username and password!");
+      }
+    
     })
     
   };
@@ -59,8 +84,8 @@ const Login = () => {
                 placeholder="enter here...."
                 type="email"
                 required
-                onChange={(e) => handleChange(e, "email")}
-                value={data.email}
+                onChange={(e) => handleChange(e, "username")}
+                value={data.username}
               />
             </FormGroup>
             <FormGroup className="mb-2 me-sm-2 mb-sm-0">
