@@ -33,3 +33,12 @@ else {
 }
 
 }
+
+export const getToken=()=>{
+
+    if(isLoggedIn()){
+       return  JSON.parse(localStorage.getItem("Authorization")).token
+    }else{
+        return null;
+    }
+}
