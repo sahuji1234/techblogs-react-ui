@@ -1,18 +1,17 @@
 import React from 'react'
 import { Container } from 'reactstrap'
-import AddPost from '../../components/AddPost'
 import Base from '../../components/Base'
 import PrivateNewFeed from '../../components/PrivateNewFeed'
 
-const Userdashboard=()=> {
+const NewFeed=()=> {
   return (
     <Base>
-    <Container>
-        <AddPost/>
-        <PrivateNewFeed/>
-    </Container> 
+    <Container className="mt-3">
+    <PrivateNewFeed/>
+    </Container>
+      
     </Base>
   )
 }
 
-export default Userdashboard
+export default NewFeed

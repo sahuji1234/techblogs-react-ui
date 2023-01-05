@@ -9,6 +9,8 @@ import Signup from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import Userdashboard from "./pages/user-routes/Userdashboard";
 import ProfileInfo from "./pages/user-routes/ProfileInfo";
+import NewFeed from "./pages/user-routes/NewFeed";
+
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/about" element={<About />} />
         
           <Route path="/user" element={<PrivateRoute/>} >
+          <Route path ="new-feed" element={<NewFeed/>} />
           <Route path="dashboard" element={<Userdashboard/>} />
           <Route path="profile-info" element={<ProfileInfo />} />
          </Route>

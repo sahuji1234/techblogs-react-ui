@@ -8,7 +8,7 @@ export const myAxios=axios.create({
 })
 
 export const privateAxios = axios.create({
-    baseURL:BASE_URL
+    baseURL:BASE_URL,
 })
 
 privateAxios.interceptors.request.use(config=>{
@@ -16,5 +16,6 @@ privateAxios.interceptors.request.use(config=>{
     console.log(token)
     if(token){
         config.headers.common.Authorization=`Bearer ${token}`
+        return config
     }
 }, error=>Promise.reject(error))

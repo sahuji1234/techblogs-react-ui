@@ -11,6 +11,7 @@ import {
   NavLink,
 } from "reactstrap";
 import { doLogout, getCurrentUserDetails, isLoggedIn } from "../auth";
+import { loadAllCategories } from "../services/category-service";
 
 const CustomNavbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -34,6 +35,22 @@ const logout=()=>{
   })
 }
 
+
+const [categories,setCategories]=useState([])
+useEffect(
+()=>{
+    setUser(getCurrentUserDetails)
+    loadAllCategories().then((data)=>{
+        console.log(data)
+        setCategories(data)
+    }).catch(error=>{
+        console.log(error)
+    })
+
+},[]
+)
+
+
   return (
     <div>
       <Nav tabs>
@@ -47,29 +64,7 @@ const logout=()=>{
             About us
           </NavLink>
         </NavItem>
-      
-        <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
-          <DropdownToggle nav caret>
-            Categories
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem>
-              <NavLink to="/login" tag={ReactLink} active>
-                Research
-              </NavLink>
-            </DropdownItem>
-            <DropdownItem>
-              <NavLink to="/login" tag={ReactLink} active>
-                Journals
-              </NavLink>
-            </DropdownItem>
-            <DropdownItem>
-              <NavLink to="/login" tag={ReactLink} active>
-                Innovations
-              </NavLink>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+    
       
       {
         login &&(
@@ -85,10 +80,32 @@ const logout=()=>{
           </NavLink>
         </NavItem>
         <NavItem>
+          <NavLink tag={ReactLink} to="/user/new-feed" active>NewFeeds</NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink onClick={logout} active>
            logout
           </NavLink>
         </NavItem>
+        <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
+          <DropdownToggle nav caret>
+            Categories
+          </DropdownToggle>
+          <DropdownMenu>
+           
+            {   
+                categories.map((category)=>(
+
+                  <DropdownItem>
+                    <NavLink to="/login" tag={ReactLink} active>
+                    {category.categoryTitle}
+                    </NavLink>
+                  </DropdownItem>
+                ))
+               
+            }
+          </DropdownMenu>
+        </Dropdown>
         </>
         )
       }

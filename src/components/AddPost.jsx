@@ -36,7 +36,6 @@ useEffect(
     })
 
 },[]
-
 )
 
 // filed changed function
@@ -78,8 +77,8 @@ const createPost=(event)=>{
         })
         // console.log(post)
      }).catch((error)=>{
-        alert("error")
-        // console.log(error)
+        alert("opps something went wrong")
+        alert(error)
      })
 }
 
