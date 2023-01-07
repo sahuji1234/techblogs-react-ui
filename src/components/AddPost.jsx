@@ -25,8 +25,11 @@ const [post,setPost] =useState({
 // }
 
 const [categories,setCategories]=useState([])
+
+
 useEffect(
 ()=>{
+    // SETTING THE CURRENT USER 
     setUser(getCurrentUserDetails)
     loadAllCategories().then((data)=>{
         console.log(data)
@@ -38,7 +41,7 @@ useEffect(
 },[]
 )
 
-// filed changed function
+// field changed function
 const fieldChanged =(event)=>{
     setPost({...post,[event.target.name]:event.target.value})
 

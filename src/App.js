@@ -10,6 +10,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Userdashboard from "./pages/user-routes/Userdashboard";
 import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import NewFeed from "./pages/user-routes/NewFeed";
+import PostPage from "./pages/PostPage";
 
 
 function App() {
@@ -22,11 +23,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/about" element={<About />} />
+          
         
           <Route path="/user" element={<PrivateRoute/>} >
           <Route path ="new-feed" element={<NewFeed/>} />
           <Route path="dashboard" element={<Userdashboard/>} />
           <Route path="profile-info" element={<ProfileInfo />} />
+          <Route path="post/:postId" element={<PostPage />} />
          </Route>
 
         </Routes>
