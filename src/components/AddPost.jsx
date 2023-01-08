@@ -3,8 +3,9 @@ import { useEffect ,useRef} from "react";
 import { Button, Card, CardBody,Container,Form, Input, Label} from "reactstrap";
 import { loadAllCategories } from "../services/category-service";
 import JoditEditor from 'jodit-react';
-import {createPost as doCreatePost} from "../services/post-service";
+import {createPost as doCreatePost, uplodaPostImage} from "../services/post-service";
 import { getCurrentUserDetails } from "../auth";
+import { upload } from "@testing-library/user-event/dist/upload";
 
 
 const AddPost=()=>{
@@ -72,6 +73,14 @@ const createPost=(event)=>{
     // submit the post on server
     post['userId'] = user.id
     doCreatePost(post).then(data=>{
+    // upload Image
+
+      uplodaPostImage(image,data.postId).then(data=>{
+        alert("Image uploaded")
+      }).catch(error=>{
+        alert('error in uploading image')
+      })
+
         alert("post created")
         setPost({
             title:'',
@@ -84,8 +93,15 @@ const createPost=(event)=>{
         alert(error)
      })
 }
+const [image,setImage] = useState(null)
+// handling file change event
 
-    return(
+const handleFileChange=(event)=>{
+    console.log(event.target.files)
+    setImage(event.target.files[0])
+}
+
+return(
         <div className="wrapper">
            <Card className="shadow-sm border-0 mt-2">
             <CardBody>
@@ -117,6 +133,11 @@ const createPost=(event)=>{
 
                 />
               </div>
+                 {/* file field */}
+              <div className="mt-3">
+                <Label for ="image"> select post banner</Label>
+                <Input id ="image" type="file" multiple onChange={handleFileChange}></Input>
+             </div>
 
               <div className="my-3">
                 <Label for="category">Post category</Label>

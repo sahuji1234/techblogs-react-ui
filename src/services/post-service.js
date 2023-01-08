@@ -24,3 +24,15 @@ export const createComment=(Comment,postId,userId)=>{
   console.log('userid is='+userId)
   return privateAxios.post(`comments/post/${postId}/user/${userId}`,Comment)
 }
+
+// upload post banner image
+
+export const uplodaPostImage=(image,postId)=>{
+let formData = new FormData()
+formData.append("image",image);
+return privateAxios.post(`/post/image/upload/${postId}`,formData,{
+  headers:{
+    'Content-Type':'multipart/form-data'
+  }
+}).then((response)=> response.data)
+}

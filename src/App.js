@@ -11,11 +11,13 @@ import Userdashboard from "./pages/user-routes/Userdashboard";
 import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import NewFeed from "./pages/user-routes/NewFeed";
 import PostPage from "./pages/PostPage";
+import UserProvider from "./context/UserProvider";
 
 
 function App() {
   return (
     <div>
+      <UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -34,6 +36,7 @@ function App() {
 
         </Routes>
       </BrowserRouter>
+      </UserProvider>
     </div>
   );
 }
