@@ -8,8 +8,7 @@ import { BASE_URL } from "../services/Helper"
 import { getCurrentUserDetails, isLoggedIn } from "../auth";
 
 const PostPage=()=>{
-
-
+    
 // fetch current user details
 
 const [user,setUser] = useState(undefined)

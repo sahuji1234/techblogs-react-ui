@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import {Row, Col,Pagination,PaginationItem,PaginationLink, Container } from 'reactstrap'
 import { loadAllPoosts } from '../services/post-service'
 import Posts from './Posts'
@@ -15,6 +16,7 @@ function PrivateNewFeed() {
   pageNumber:''
 
  })
+ const [currentPage,setCurrentPage] =useState(0)
 
  const changePage=(pageNumber=0,pageSize=5)=>{
   if(pageNumber>postContent.pageNumber && postContent.lastPage){
@@ -24,7 +26,14 @@ function PrivateNewFeed() {
     return;
   }
   loadAllPoosts(pageNumber,pageSize).then(data=>{
-    setPostContent(data)
+    setPostContent({
+      content:[...postContent.content,...data.content],
+      totalPages:data.totalPages,
+      totalElements:data.totalElements,
+      pageSize:data.pageSize,
+      lastPage:data.lastPage,
+      pageNumber:data.pageNumber
+    })
     window.scroll(0,0)
   }).catch(error=>{
     alert("Error in loading posts")
@@ -32,7 +41,7 @@ function PrivateNewFeed() {
  }
 
  useEffect(()=>{
-  changePage(0)
+  changePage(currentPage)
 
 // // load all the posts from server
 // loadAllPoosts(0,5).then((data)=>{
@@ -43,8 +52,12 @@ function PrivateNewFeed() {
 // })
 
 
- },[])
+ },[currentPage])
 
+ const changePageInfinite=()=>{
+  console.log('page changed')
+  setCurrentPage(currentPage+1)
+ }
 
   return (
    <div className="container-fluid">
@@ -54,12 +67,24 @@ function PrivateNewFeed() {
                 offset:1
        }}>
                <h1>Blogs Count({postContent?.totalElements})</h1>
-               {
+             <InfiniteScroll
+             dataLength={postContent.content.length}
+             next={changePageInfinite}
+             hasMore={!postContent.lastPage}
+             loader={<h4>Loading...</h4>}
+             endMessage={
+              <p style={{ textAlign: 'center' }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+             >
+             {
                postContent.content.map((post)=>(
                 <Posts post={post} key={post.postId} />
                ))
                }
-              <Container className='text-center mt-3'>
+             </InfiniteScroll>
+              {/* <Container className='text-center mt-3'>
 
               <Pagination size='lg'>
                 <PaginationItem onClick={()=>changePage(postContent.pageNumber-1)} disabled={postContent.pageNumber===0}>
@@ -85,8 +110,7 @@ function PrivateNewFeed() {
                   </PaginationLink>
                 </PaginationItem>
                </Pagination>
-
-              </Container>
+              </Container> */}
        </Col>
     </Row>
    </div>
