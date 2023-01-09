@@ -90,13 +90,11 @@ const [post,setPost]=useState(null);
                 {post.title}
             </h3>
         </CardText>
-        <div className="image-container mt-4 container text-center shadow" style={{maxwidth:'50%'}} >
+        <div className="image-container mt-4 container text-center shadow" style={{maxWidth:'50%'}} >
              <img  className="img-fluid" src={BASE_URL+'/post/image/'+post.imageName} alt="no image found" />
         </div>
 
         <CardText className="mt-3" dangerouslySetInnerHTML={{__html:post.content}}>
-
-
         </CardText>
 
 

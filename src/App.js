@@ -12,6 +12,8 @@ import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import NewFeed from "./pages/user-routes/NewFeed";
 import PostPage from "./pages/PostPage";
 import UserProvider from "./context/UserProvider";
+import PrivateCategory from "./pages/user-routes/PrivateCategory";
+
 
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
           <Route path="dashboard" element={<Userdashboard/>} />
           <Route path="profile-info" element={<ProfileInfo />} />
           <Route path="post/:postId" element={<PostPage />} />
+          <Route path="category/:categoryId" element={<PrivateCategory/>} />
          </Route>
 
         </Routes>

@@ -11,7 +11,7 @@ const About = () => {
     <Base>
     
     <div className="container col-md-4">
-      <h1>About technical blogs</h1>
+      <h1>About blogs</h1>
       <p>Here you can find great blogs to study</p>
       <h1>Hello from: {user.name}</h1>
     </div>

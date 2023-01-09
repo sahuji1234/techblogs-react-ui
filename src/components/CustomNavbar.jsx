@@ -59,11 +59,11 @@ useEffect(
             Technical Blogs
           </NavLink>
         </NavItem>
-        <NavItem>
+        {/* <NavItem>
           <NavLink to="/about" tag={ReactLink} active>
             About us
           </NavLink>
-        </NavItem>
+        </NavItem> */}
     
       
       {
@@ -76,17 +76,13 @@ useEffect(
         </NavItem>
         <NavItem>
           <NavLink tag={ReactLink} to="/user/dashboard" active>
-           {user.email}
+          Add blog
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink tag={ReactLink} to="/user/new-feed" active>NewFeeds</NavLink>
         </NavItem>
-        <NavItem>
-          <NavLink onClick={logout} active>
-           logout
-          </NavLink>
-        </NavItem>
+      
         <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle nav caret>
             Categories
@@ -97,7 +93,7 @@ useEffect(
                 categories.map((category)=>(
 
                   <DropdownItem>
-                    <NavLink to="/login" tag={ReactLink} active>
+                    <NavLink tag={ReactLink} to={'/user/category/'+category.categoryId} active>
                     {category.categoryTitle}
                     </NavLink>
                   </DropdownItem>
@@ -106,6 +102,16 @@ useEffect(
             }
           </DropdownMenu>
         </Dropdown>
+        <NavItem>
+          <NavLink onClick={logout} active>
+           logout
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink disabled>
+           <h5> Welcome {user.email} </h5>
+          </NavLink>
+        </NavItem>
         </>
         )
       }
