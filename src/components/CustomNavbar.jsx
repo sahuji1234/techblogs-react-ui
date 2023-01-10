@@ -70,7 +70,7 @@ useEffect(
         login &&(
           <>
          <NavItem>
-          <NavLink tag={ReactLink} to="/user/profile-info" active>
+          <NavLink tag={ReactLink} to={`/user/profile-info/${user.id}`} active>
            profile
           </NavLink>
         </NavItem>

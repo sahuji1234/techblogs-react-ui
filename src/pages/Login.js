@@ -37,7 +37,7 @@ const Login = () => {
 
        //validate data
        if(data.username.trim()===''|| data.password.trim()===''){
-       toast.error("username ore password is blank please fill the details correctly")
+       toast.error("username or password is blank please fill the details correctly")
       }
 
 

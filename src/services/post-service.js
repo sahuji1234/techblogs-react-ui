@@ -41,3 +41,7 @@ return privateAxios.post(`/post/image/upload/${postId}`,formData,{
 export const loadPostsByCategoryId=(categoryId)=>{
   return myAxios.get(`/category/${categoryId}/posts`).then(res=>res.data)
 }
+
+export const loadPostUserWise=(userId)=>{
+  return privateAxios.get(`/user/${userId}/posts`).then(res=>res.data)
+}

@@ -17,20 +17,25 @@ useEffect(()=>{
         setPosts([...data])
     }).catch(error=>{
         console.log(error)
+        alert('error in loading posts')
     })
-})
+},[categoryId])
 
   return (
     <div>
           <Container className='mt-3'>
            <Row>
                <Col md={10} className='pt-5'>
+                <h1>Blogs count {posts.length}</h1>
                  {
                     posts && posts.map((post,index)=>{
                         return(
                             <Posts post={post} />
                         )
                     })
+                 }
+                 {
+                    posts.length<=0 ?<h1>No posts in this category</h1> :''
                  }
                </Col>
            </Row>

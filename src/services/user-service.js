@@ -11,3 +11,8 @@ export const signIn = (user) => {
     .post("/auth/login",user)
     .then((response) => response.data);
 };
+
+
+export const getUser=(userId)=>{
+  return myAxios.get(`/users/${userId}`).then(resp=>resp.data)
+}
