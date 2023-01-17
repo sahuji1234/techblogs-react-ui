@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import {Row, Col,Pagination,PaginationItem,PaginationLink, Container } from 'reactstrap'
+import {Row, Col,Pagination,PaginationItem,PaginationLink,Container } from 'reactstrap'
 import { loadAllPoosts } from '../services/post-service'
 import Posts from './Posts'
+import { deletePostService } from '../services/post-service'
 
 function PrivateNewFeed() {
 
@@ -59,6 +60,22 @@ function PrivateNewFeed() {
   setCurrentPage(currentPage+1)
  }
 
+ function deletePost(post){
+
+  // going to delete post
+  deletePostService(post.postId).then(res=>{
+    console.log(res)
+   alert("post is deleted")
+   let newPostContents=  postContent.content.filter(p=>p.postId!=post.postId)
+   setPostContent({...postContent,content:newPostContents})
+
+  }).catch(error=>{
+    console.log(error)
+  })
+}
+
+
+
   return (
    <div className="container-fluid">
     <Row>
@@ -80,7 +97,7 @@ function PrivateNewFeed() {
              >
              {
                postContent.content.map((post)=>(
-                <Posts post={post} key={post.postId} />
+                <Posts deletePost={deletePost} post={post} key={post.postId} />
                ))
                }
              </InfiniteScroll>

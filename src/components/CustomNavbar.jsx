@@ -82,7 +82,6 @@ useEffect(
         <NavItem>
           <NavLink tag={ReactLink} to="/user/new-feed" active>NewFeeds</NavLink>
         </NavItem>
-      
         <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle nav caret>
             Categories

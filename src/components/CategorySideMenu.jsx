@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Col, Container, Row } from 'reactstrap'
-import { loadPostsByCategoryId } from '../services/post-service'
+import { loadPostsByCategoryId ,deletePostService } from '../services/post-service'
 import Posts from './Posts'
 
 
@@ -21,6 +21,20 @@ useEffect(()=>{
     })
 },[categoryId])
 
+function deletePost(post){
+
+    // going to delete post
+    deletePostService(post.postId).then(res=>{
+      console.log(res)
+     alert("post is deleted")
+     let newPostContents =  posts.content.filter(p=>p.postId!=post.postId)
+     setPosts({...posts,content:newPostContents})
+  
+    }).catch(error=>{
+      console.log(error)
+    })
+  }
+
   return (
     <div>
           <Container className='mt-3'>
@@ -30,7 +44,7 @@ useEffect(()=>{
                  {
                     posts && posts.map((post,index)=>{
                         return(
-                            <Posts post={post} />
+                            <Posts deletePost={deletePost} post={post} />
                         )
                     })
                  }

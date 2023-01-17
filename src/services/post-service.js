@@ -45,3 +45,8 @@ export const loadPostsByCategoryId=(categoryId)=>{
 export const loadPostUserWise=(userId)=>{
   return privateAxios.get(`/user/${userId}/posts`).then(res=>res.data)
 }
+
+// delete post 
+ export function deletePostService(postId){
+  return privateAxios.delete(`/${postId}`).then(response=> response.data)
+ }
