@@ -11,6 +11,8 @@ import {
   NavLink,
 } from "reactstrap";
 import { doLogout, getCurrentUserDetails, isLoggedIn } from "../auth";
+// import userContext from "../context/userContext";
+// import { useContext } from "react";
 import { loadAllCategories } from "../services/category-service";
 
 const CustomNavbar = () => {
@@ -27,10 +29,15 @@ useEffect(()=>{
 },[login])
 let navigate = useNavigate()
 
+// const userContextData =useContext(userContext)
 const logout=()=>{
   doLogout(()=>{
     //logged out
     setLogin(false)
+    // userContextData.setUser({
+    //   data:null,
+    //   login:false
+    // })
     navigate("/")
   })
 }

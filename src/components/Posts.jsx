@@ -4,9 +4,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, CardBody, CardText } from 'reactstrap'
 import { getCurrentUserDetails, isLoggedIn } from '../auth'
+// import { useContext } from 'react'
+// import userContext from '../context/userContext'
 
 function Posts({post={id:-1 ,title:"this is default post title",content:"This is default post content"},deletePost}) {
  
+//  const userContextData=useContext(userContext)
+
   const [login,setLogin] = useState(null)
  const [user,setUser] = useState(null)
  useEffect(()=>{
@@ -26,6 +30,7 @@ function Posts({post={id:-1 ,title:"this is default post title",content:"This is
             <Link className='btn btn-secondary border-0' to={'/user/post/'+post.postId}>Read more...</Link>
             
           {
+            // userContextData.user.login
             isLoggedIn && (user && user.id===post.user.id ? <Button onClick={()=>deletePost(post)} className='ms-2' color='danger'>Delete</Button> :'')
           }
        

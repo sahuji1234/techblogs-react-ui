@@ -5,15 +5,14 @@ import userContext from './userContext'
 
 function UserProvider({children}) {
 const [user,setUser] =useState({
-    name:'suraj'
+   data:{},
+   login:false
 })
- useEffect(()=>{
-          setUser({
-            name:"suraj sahu"
-          })
- },[])
+
+  
+
   return (
-   <userContext.Provider value={user}>
+   <userContext.Provider value={{user,setUser}}>
       {children}
    </userContext.Provider>
   )
