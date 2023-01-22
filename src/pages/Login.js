@@ -6,12 +6,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { signIn } from "../services/user-service";
 import { doLogin } from "../auth/index";
 import { useNavigate } from "react-router-dom";
-// import userContext from "../context/userContext";
-// import { useContext } from "react";
+import userContext from "../context/userContext";
+import { useContext } from "react";
 
 const Login = () => {
 
-  // const userContextData= useContext(userContext);
+  const userContextData= useContext(userContext);
   // SET DATA
   const [data, setData] = useState({
     username: "",
@@ -52,11 +52,12 @@ const Login = () => {
       // save the data to localstorage
       doLogin(response,()=>{
         console.log("Login details are save to local storage")
-        // redirect to user dashboard page
-        // userContextData.setUser({
-        //   data: data,
-        //   login:true
-        // })
+       
+        userContextData.setUser({
+          data: data.user,
+          login:true
+        })
+         // redirect to user dashboard page
         navigate("/user/dashboard")
 
       })

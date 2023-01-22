@@ -13,6 +13,7 @@ import NewFeed from "./pages/user-routes/NewFeed";
 import PostPage from "./pages/PostPage";
 import UserProvider from "./context/UserProvider";
 import PrivateCategory from "./pages/user-routes/PrivateCategory";
+import UpdateBlog from "./pages/UpdateBlog";
 
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="profile-info/:userId" element={<ProfileInfo />} />
           <Route path="post/:postId" element={<PostPage />} />
           <Route path="category/:categoryId" element={<PrivateCategory/>} />
+          <Route path="update-blog/:blogId" element={<UpdateBlog/>} />
          </Route>
 
         </Routes>
