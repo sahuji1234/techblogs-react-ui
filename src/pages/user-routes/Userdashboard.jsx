@@ -10,6 +10,7 @@ import { loadPostUserWise } from '../../services/post-service'
 import Posts from '../../components/Posts'
 import { toast } from 'react-toastify'
 import { deletePostService } from '../../services/post-service'
+import image from "../../img/login.jpg";
 
 const Userdashboard=()=> {
 
@@ -48,6 +49,10 @@ function deletePost(post){
 
   return (
     <Base>
+        <div style={{ backgroundImage:`url(${image})` ,
+    height:'120%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',} }>
     <Container>
         <AddPost/>
         {/* <PrivateNewFeed/> */}
@@ -61,7 +66,9 @@ function deletePost(post){
           })
         }
     </Container> 
+    </div>
     </Base>
+
   )
 }
 

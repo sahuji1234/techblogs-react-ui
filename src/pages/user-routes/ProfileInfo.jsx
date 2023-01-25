@@ -8,6 +8,7 @@ import Base from '../../components/Base'
 import ViewUserProfile from '../../components/ViewUserProfile'
 import userContext from '../../context/userContext'
 import { getUser } from '../../services/user-service'
+import image from "../../img/login.jpg";
 
 const ProfileInfo=()=> {
   const object = useContext(userContext)
@@ -33,7 +34,13 @@ const userView=()=>{
 
   return (
    <Base>
+     <div style={{ backgroundImage:`url(${image})` ,
+    height:'90vh',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',} }>
     {user ?userView():'loading user data'}
+
+    </div>
    </Base>
   )
 }

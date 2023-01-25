@@ -83,7 +83,7 @@ function PrivateNewFeed() {
                 size:10,
                 offset:1
        }}>
-               <h1>Blogs Count({postContent?.totalElements})</h1>
+               <h1 className='text-white'>Total Blogs Count({postContent?.totalElements})</h1>
              <InfiniteScroll
              dataLength={postContent.content.length}
              next={changePageInfinite}
@@ -91,7 +91,7 @@ function PrivateNewFeed() {
              loader={<h4>Loading...</h4>}
              endMessage={
               <p style={{ textAlign: 'center' }}>
-                <b>Yay! You have seen it all</b>
+                <b className='text-white'>Yay! You have seen it all</b>
               </p>
             }
              >

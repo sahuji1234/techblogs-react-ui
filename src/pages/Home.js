@@ -10,19 +10,19 @@ import {
 
 const items = [
   {
-    src: 'https://picsum.photos/id/123/1400/650',
+    src: 'https://picsum.photos/id/123/1400/607',
     altText: 'Slide 1',
     caption: '“Love all, trust a few, do wrong to none.”',
     key: 1,
   },
   {
-    src: 'https://picsum.photos/id/456/1400/650',
+    src: 'https://picsum.photos/id/456/1400/607',
     altText: 'Slide 2',
     caption: '“You call it madness, but I call it love.”',
     key: 2,
   },
   {
-    src: 'https://picsum.photos/id/678/1400/650',
+    src: 'https://picsum.photos/id/678/1400/607',
     altText: 'Slide 3',
     caption: '“We can only learn to love by loving.”',
     key: 3,

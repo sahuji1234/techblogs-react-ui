@@ -10,7 +10,7 @@ import { loadAllCategories } from '../services/category-service'
 import { Button, Card, CardBody,Container,Form, Input, Label} from "reactstrap";
 import JoditEditor from 'jodit-react';
 import { useRef } from 'react'
-
+import image from "../img/login.jpg";
 
 
 function UpdateBlog() {
@@ -132,7 +132,7 @@ const updateHtml=()=>{
                 </Input>
               </div>
                  <Container className="text-center">
-                    <Button type="submit" className="rounded-0" color="primary">Update Post</Button>
+                    <Button type="submit" className="rounded-0" color="info">Update Post</Button>
                  </Container>
             </Form>
             </CardBody>
@@ -145,9 +145,14 @@ const updateHtml=()=>{
 
     return (
     <Base>
+     <div style={{ backgroundImage:`url(${image})` ,
+                   height:'90vh',
+                   backgroundSize: 'cover',
+                   backgroundRepeat: 'no-repeat',} }>
       <Container>
       {post&& updateHtml()}
       </Container>
+      </div>
     </Base>
   )
 }

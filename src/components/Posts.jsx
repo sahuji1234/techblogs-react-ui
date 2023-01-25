@@ -35,7 +35,7 @@ function Posts({post={id:-1 ,title:"this is default post title",content:"This is
          }
        
          {
-           userContextData.user.login && (user && user.id===post.user.id ? <Button tag={Link} to={`/user/update-blog/${post.postId}`} className='ms-2' color='warning'>update</Button> :'')
+           userContextData.user.login && (user && user.id===post.user.id ? <Button tag={Link} to={`/user/update-blog/${post.postId}`} className='ms-2' color='info'>update</Button> :'')
          }
 
         </div>

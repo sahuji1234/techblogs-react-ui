@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { signUp } from "../services/user-service";
+import image from "../img/login.jpg"
+
 const Signup = () => {
   const [data, setData] = useState({
     name: "",
@@ -70,14 +72,19 @@ const Signup = () => {
   };
 
   return (
+    <div  style={{ backgroundImage:`url(${image})` ,
+    height:'100vh',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',} }>
     <Base>
-      <div className="container mt-3 col-md-9">
+    
+      <div className="container mt-5 col-md-4"  >
       <ToastContainer />
         <Form onSubmit={submitForm}>
           <Row>
-            <Col md={4}>
-              <FormGroup>
-                <Label for="exampleName">Full name</Label>
+            <Col md={10}>
+              <FormGroup >
+                <Label for="exampleName" className="text-white" >Full name</Label>
                 <Input
                   id="examplePassword"
                   name="usernamename"
@@ -90,9 +97,11 @@ const Signup = () => {
                
               </FormGroup>
             </Col>
-            <Col md={4}>
+          </Row>
+          <Row>
+            <Col md={10}>
               <FormGroup>
-                <Label for="exampleEmail">Email</Label>
+                <Label for="exampleEmail" className="text-white">Email</Label>
                 <Input
                   id="exampleEmail"
                   name="email"
@@ -108,9 +117,11 @@ const Signup = () => {
                 </FormFeedback>
               </FormGroup>
             </Col>
-            <Col md={4}>
+            </Row>
+            <Row>
+            <Col md={10}>
               <FormGroup>
-                <Label for="examplePassword">Password</Label>
+                <Label for="examplePassword" className="text-white">Password</Label>
                 <Input
                   id="examplePassword"
                   name="password"
@@ -128,9 +139,9 @@ const Signup = () => {
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
+            <Col md={10}>
               <FormGroup>
-                <Label for="exampleAddress1">Address Line 1</Label>
+                <Label for="exampleAddress1" className="text-white">Address</Label>
                 <Input
                   id="exampleAddress1"
                   name="address1"
@@ -145,7 +156,7 @@ const Signup = () => {
                 </FormFeedback>
               </FormGroup>
             </Col>
-            <Col md={6}>
+            {/* <Col md={6}>
               <FormGroup>
                 <Label for="exampleAddress2">Address Line 2</Label>
                 <Input
@@ -157,11 +168,11 @@ const Signup = () => {
                 />
                 
               </FormGroup>
-            </Col>
+            </Col> */}
           </Row>
 
           <Row>
-            <Col md={3}>
+            {/* <Col md={3}>
               <FormGroup>
                 <Label for="exampleCity">City</Label>
                 <Input
@@ -201,10 +212,10 @@ const Signup = () => {
                   value={data.zip}
                 />
               </FormGroup>
-            </Col>
-            <Col md={3}>
+            </Col> */}
+            <Col md={10}>
               <FormGroup>
-                <Label for="examplePhone">Phone</Label>
+                <Label for="examplePhone" className="text-white">Phone</Label>
                 <Input
                   id="examplePhone"
                   name="phone"
@@ -219,18 +230,20 @@ const Signup = () => {
             </Col>
           </Row>
           <Row>
-            <Col md={2}>
-              <Button>Sign up</Button>
+            <Col md={3}>
+              <Button type="submit" color="primary">Sign up</Button>
             </Col>
-            <Col>
-              <Button type="reset" onClick={resetData}>
+            <Col md={2}>
+              <Button type="reset" color="danger" onClick={resetData}>
                 Reset
               </Button>
             </Col>
           </Row>
         </Form>
+      
       </div>
     </Base>
+    </div>
   );
 };
 

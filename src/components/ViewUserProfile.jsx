@@ -61,13 +61,13 @@ useEffect(()=>{
              
                </tbody>
            </Table>
-          {
+          {/* {
             currentUser ? (currentUser.id==user.id)?(
                 <CardFooter className='text-center'>
                 <Button color='warning' >update profile</Button>
               </CardFooter>
             ):'':''
-          }
+          } */}
         </CardBody>
        </Card>
   )

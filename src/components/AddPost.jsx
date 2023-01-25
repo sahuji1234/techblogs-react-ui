@@ -5,7 +5,8 @@ import { loadAllCategories } from "../services/category-service";
 import JoditEditor from 'jodit-react';
 import {createPost as doCreatePost, uplodaPostImage} from "../services/post-service";
 import { getCurrentUserDetails } from "../auth";
-import { upload } from "@testing-library/user-event/dist/upload";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 
 const AddPost=()=>{
@@ -59,15 +60,15 @@ const createPost=(event)=>{
     
     console.log(post);
     if(post.title.trim()===''){
-        alert("post title is required")
+        toast.warning("post title is required")
         return;
     }
     if(post.content.trim()===''){
-        alert("post title is required")
+        toast.warning("post title is required")
         return;
     }
     if(post.categoryId===''){
-        alert("please select some category")
+        toast.warning("please select some category")
         return;
     }
     // submit the post on server
@@ -76,9 +77,9 @@ const createPost=(event)=>{
     // upload Image
 
       uplodaPostImage(image,data.postId).then(data=>{
-        alert("Image uploaded")
+        toast.success("Image uploaded")
       }).catch(error=>{
-        alert('error in uploading image')
+        toast.error('error in uploading image')
       })
 
         alert("post created")
@@ -97,7 +98,6 @@ const [image,setImage] = useState(null)
 // handling file change event
 
 const handleFileChange=(event)=>{
-    console.log(event.target.files)
     setImage(event.target.files[0])
 }
 

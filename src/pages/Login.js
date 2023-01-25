@@ -8,6 +8,7 @@ import { doLogin } from "../auth/index";
 import { useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
 import { useContext } from "react";
+import image from "../img/login.jpg";
 
 const Login = () => {
 
@@ -78,19 +79,24 @@ const Login = () => {
   };
 
   return (
+    <div  style={{ backgroundImage:`url(${image})` ,
+    height:'100vh',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',} }>
     <Base>
-      <div className="container mt-3 col-md-4">
+    
+      <div className="container mt-3 col-md-4" >
       <ToastContainer />
         <Form inline onSubmit={submitForm}>
           <Row>
             <FormGroup className="mb-2 me-sm-2 mb-sm-0">
-              <Label className="me-sm-2" for="exampleEmail">
+              <Label className="me-sm-2 text-white" for="exampleEmail">
                 Email
               </Label>
               <Input
                 id="exampleEmail"
                 name="email"
-                placeholder="enter here...."
+                placeholder="enter email here...."
                 type="email"
                 required
                 onChange={(e) => handleChange(e, "username")}
@@ -98,13 +104,13 @@ const Login = () => {
               />
             </FormGroup>
             <FormGroup className="mb-2 me-sm-2 mb-sm-0">
-              <Label className="me-sm-2" for="examplePassword">
+              <Label className="me-sm-2 text-white" for="examplePassword">
                 Password
               </Label>
               <Input
                 id="examplePassword"
                 name="password"
-                placeholder="enter here...."
+                placeholder="enter password here...."
                 type="password"
                 required
                 onChange={(e) => handleChange(e, "password")}
@@ -113,16 +119,18 @@ const Login = () => {
             </FormGroup>
           </Row>
           <Row>
-            <Col md={6} className="mt-4">
-              <Button>Sign in</Button>
+            <Col md={3} className="mt-4">
+              <Button color="primary">Sign in</Button>
             </Col>
-            <Col className="mt-4">
-              <Button onClick={resetData}>Reset</Button>
+            <Col md={3} className="mt-4">
+              <Button onClick={resetData} color="danger" >Reset</Button>
             </Col>
           </Row>
         </Form>
       </div>
+      
     </Base>
+    </div>
   );
 };
 
