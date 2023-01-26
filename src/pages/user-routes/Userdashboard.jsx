@@ -56,7 +56,7 @@ function deletePost(post){
     <Container>
         <AddPost/>
         {/* <PrivateNewFeed/> */}
-        <h1 className='my-3'>Total Posts : ({posts.length})</h1>
+        <h1 className='my-3 text-white'>Total Posts : ({posts.length})</h1>
 
         {
           posts.map((post,index)=>{
