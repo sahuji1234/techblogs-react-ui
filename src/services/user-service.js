@@ -16,3 +16,10 @@ export const signIn = (user) => {
 export const getUser=(userId)=>{
   return myAxios.get(`/users/${userId}`).then(resp=>resp.data)
 }
+
+export const getOtp=(username)=>{
+  return myAxios.get(`/generateOtp?username=${username}`).then(resp=>resp.data)
+}
+export const validateOtp=(username,otp)=>{
+  return  myAxios.get(`/validateOtp?otpnum=${otp}&username=${username}`).then(resp=>resp)
+}

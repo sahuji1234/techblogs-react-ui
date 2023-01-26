@@ -3,7 +3,7 @@ import { Label, Input, FormGroup, Button, Col, Row, Form, FormFeedback } from "r
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { signUp } from "../services/user-service";
+import { getOtp, signUp, validateOtp } from "../services/user-service";
 import image from "../img/login.jpg"
 
 const Signup = () => {
@@ -70,6 +70,35 @@ const Signup = () => {
     })
    
   };
+  // otp 
+ const [otpverify,setOtpverify] = useState(false);
+  const genOtp=()=>{
+    if(data.email.trim!==''){
+       getOtp(data.email).then(response=>{
+         alert("otp sent successfully");
+       }).catch(error=>{
+        alert("otp could not be send");
+       })
+    }
+  }
+  // validate otp
+  const [otp,setOtp]= useState();
+  const valOtp=()=>{
+     if(data.email.trim!=='' && otp!==''){
+      validateOtp(data.email,otp).then(response=>{
+
+        if(response.data==='Entered Otp is valid'){ 
+        alert("otp validate successfully");
+        setOtpverify(true);
+      } else{
+        alert("wrong otp");
+      }
+
+      }).catch(error=>{
+        alert("otp could not be verified")
+      })
+     }
+  }
 
   return (
     <div  style={{ backgroundImage:`url(${image})` ,
@@ -112,6 +141,23 @@ const Signup = () => {
                   value={data.email}
                   invalid={error.errors?.response?.data?.email ? true:false}
                 />
+                {!otpverify &&
+
+                <>
+                      <Button color="primary" className="mt-3" onClick={genOtp} >Generate otp</Button>
+                      <Input
+                      className="mt-3"
+                      maxLength={6}
+                      id="otp"
+                      name="otp"
+                      placeholder="enter otp here..."
+                      type="number"
+                      onChange={(e)=> setOtp(e.target.value)} />
+                      <Button color="primary" className="mt-3" onClick={valOtp}>Verify otp</Button>
+                      </>
+
+                }
+
                  <FormFeedback>
                   {error.errors?.response?.data?.email}
                 </FormFeedback>
@@ -230,9 +276,12 @@ const Signup = () => {
             </Col>
           </Row>
           <Row>
-            <Col md={3}>
+            {otpverify &&   
+          <Col md={3}>
               <Button type="submit" color="primary">Sign up</Button>
             </Col>
+            }
+          
             <Col md={2}>
               <Button type="reset" color="danger" onClick={resetData}>
                 Reset
