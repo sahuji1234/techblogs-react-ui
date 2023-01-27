@@ -3,12 +3,15 @@ import { Form, Label, Input, FormGroup, Button, Col, Row } from "reactstrap";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { signIn } from "../services/user-service";
+import { signIn, validateOtp } from "../services/user-service";
 import { doLogin } from "../auth/index";
 import { useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
 import { useContext } from "react";
 import image from "../img/login.jpg";
+import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { getOtp as generateOtp } from "../services/user-service";
+
 
 const Login = () => {
 
@@ -78,6 +81,47 @@ const Login = () => {
     
   };
 
+  // forget password
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [forgetPassOtpVerify,setForgetPassOtpVerify] = useState(false);
+  const [forgetPasswordData,setForgetPasswordData]= useState({
+    username:'',
+    password:'',
+    otp:''
+  })
+
+  const getOtp=()=>{
+    if(forgetPasswordData.username!==''){
+     generateOtp(forgetPasswordData.username).then(resp=>{
+      if(resp.data==='failed'){
+        alert("otp could not be sent");
+      } else{
+        alert("otp sent")
+      }
+      
+     }).catch(error=>{
+      alert("something went wrong");
+     })
+    } else {return}
+  }
+const verifyOtp=()=>{
+  if(forgetPasswordData.username!==''&& forgetPasswordData.otp!==''){
+        validateOtp(forgetPasswordData.username,forgetPasswordData.otp).then(resp=>{
+          if(resp.data==='Entered Otp is valid'){
+            alert(resp.data)
+            setForgetPassOtpVerify(true)
+          }else{
+            alert("wrong otp");
+          }
+       
+        }).catch(error=>{
+          alert("something went wrong");
+        })
+  } else{ return}
+}
+
+
   return (
     <div  style={{ backgroundImage:`url(${image})` ,
     height:'100vh',
@@ -119,16 +163,93 @@ const Login = () => {
             </FormGroup>
           </Row>
           <Row>
-            <Col md={3} className="mt-4">
+            <Col md={3} className="mt-4 text-center">
               <Button color="primary">Sign in</Button>
             </Col>
-            <Col md={3} className="mt-4">
+            <Col  md={3} className="mt-4 text-center">
               <Button onClick={resetData} color="danger" >Reset</Button>
+            </Col>
+            <Col md={6} className="mt-4">
+              <Button onClick={toggle} color="secondary" >Forget password</Button>
             </Col>
           </Row>
         </Form>
       </div>
+
+
+{/* modal for forget password */}
+<div>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Reset your password</ModalHeader>
+        <ModalBody>
+          <Label>Enter username</Label>
+               <Input
+                className="mt-3"
+                id="email"
+                name="username"
+                placeholder="enter username here...."
+                type="email"
+                required
+                onChange={(e)=>{
+                setForgetPasswordData({...forgetPasswordData,["username"]:e.target.value})
+                }
+              }
+              />
+              <Label className="mt-3">Enter OTP</Label>
+             <Input
+                className="mt-3"
+                id="otp"
+                name="otp"
+                placeholder="enter otp here...."
+                type="text"
+                required
+                onChange={(e)=>{
+                  setForgetPasswordData({...forgetPasswordData,["otp"]:e.target.value})
+                }
+              }
+                
+              />
+
+
+  
       
+          {!forgetPassOtpVerify && <>
+            <Button className="mt-3 me-3" color="danger" onClick={getOtp}>
+                Get Otp
+              </Button>
+              <Button className="mt-3 me-3" color="primary" onClick={verifyOtp}>
+                Verify Otp
+              </Button>
+              <Button className="mt-3" color="secondary" onClick={toggle}>
+                  Cancel
+              </Button></>
+          }
+          {   forgetPassOtpVerify && <>
+                <Label className="mt-3">Enter new password</Label>
+                <Input
+                 className="mt-3"
+                 id="password"
+                 type="password"
+                 name="password"
+                 placeholder="enter your new password here.."
+                 required
+                onChange={(e)=>{
+                  setForgetPasswordData({...forgetPasswordData,["password"]:e.target.value})
+                }}
+                
+                />
+                <Button className="mt-3" color="secondary" onClick={''}>
+                 Reset Password
+                </Button>
+          </>
+
+          }
+          
+          </ModalBody>
+      </Modal>
+    </div>
+
+
     </Base>
     </div>
   );

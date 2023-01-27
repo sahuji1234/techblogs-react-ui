@@ -73,9 +73,14 @@ const Signup = () => {
   // otp 
  const [otpverify,setOtpverify] = useState(false);
   const genOtp=()=>{
-    if(data.email.trim!==''){
+    if(data.email.trim!==''&& data.email!==null){
        getOtp(data.email).then(response=>{
-         alert("otp sent successfully");
+         if(response.data==='failed'){
+          alert("otp could not be send");
+         }else{
+          alert("otp sent successfully");
+         }
+         
        }).catch(error=>{
         alert("otp could not be send");
        })
@@ -86,8 +91,7 @@ const Signup = () => {
   const valOtp=()=>{
      if(data.email.trim!=='' && otp!==''){
       validateOtp(data.email,otp).then(response=>{
-
-        if(response.data==='Entered Otp is valid'){ 
+       if(response.data==='Entered Otp is valid'){ 
         alert("otp validate successfully");
         setOtpverify(true);
       } else{
@@ -102,7 +106,7 @@ const Signup = () => {
 
   return (
     <div  style={{ backgroundImage:`url(${image})` ,
-    height:'100vh',
+    height:'120vh',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',} }>
     <Base>
