@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
 import { useContext } from "react";
 import image from "../img/login.jpg";
-import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { getOtp as generateOtp } from "../services/user-service";
+import {  Modal, ModalHeader, ModalBody} from 'reactstrap';
+import { getOtp as generateOtp,resetPassword } from "../services/user-service";
 
 
 const Login = () => {
@@ -94,7 +94,7 @@ const Login = () => {
   const getOtp=()=>{
     if(forgetPasswordData.username!==''){
      generateOtp(forgetPasswordData.username).then(resp=>{
-      if(resp.data==='failed'){
+      if(resp==='failed'){
         alert("otp could not be sent");
       } else{
         alert("otp sent")
@@ -121,6 +121,29 @@ const verifyOtp=()=>{
   } else{ return}
 }
 
+const [updatePassword,setUpdatePassword] = useState({
+  username:'',
+  password:''
+})
+const resetpassword=()=>{
+  setUpdatePassword({...updatePassword,["username"]:forgetPasswordData.username});
+  updatePassword.username=forgetPasswordData.username;
+  setUpdatePassword({...updatePassword,["password"]:forgetPasswordData.password});
+  console.log(updatePassword)
+  resetPassword(updatePassword).then(resp=>{
+    console.log(resp.data)
+      alert("otp verified successfully")
+      setForgetPassOtpVerify(false)
+      toggle()
+    
+  
+  }).catch(error=>{
+
+    alert("user not found")
+  
+  })
+ 
+}
 
   return (
     <div  style={{ backgroundImage:`url(${image})` ,
@@ -163,14 +186,14 @@ const verifyOtp=()=>{
             </FormGroup>
           </Row>
           <Row>
-            <Col md={3} className="mt-4 text-center">
-              <Button color="primary">Sign in</Button>
-            </Col>
-            <Col  md={3} className="mt-4 text-center">
-              <Button onClick={resetData} color="danger" >Reset</Button>
-            </Col>
-            <Col md={6} className="mt-4">
-              <Button onClick={toggle} color="secondary" >Forget password</Button>
+             <Col md={12} className="mt-4">
+              <Button color="primary" className="me-5">Sign in</Button>
+            
+   
+              <Button onClick={resetData} color="danger" className="me-5" >Reset</Button>
+           
+          
+              <Button onClick={toggle} color="secondary" className="ml-5">Forget password</Button>
             </Col>
           </Row>
         </Form>
@@ -209,8 +232,6 @@ const verifyOtp=()=>{
               }
                 
               />
-
-
   
       
           {!forgetPassOtpVerify && <>
@@ -238,7 +259,7 @@ const verifyOtp=()=>{
                 }}
                 
                 />
-                <Button className="mt-3" color="secondary" onClick={''}>
+                <Button className="mt-3" color="secondary" onClick={resetpassword}>
                  Reset Password
                 </Button>
           </>

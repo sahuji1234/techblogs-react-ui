@@ -23,3 +23,7 @@ export const getOtp=(username)=>{
 export const validateOtp=(username,otp)=>{
   return  myAxios.get(`/validateOtp?otpnum=${otp}&username=${username}`).then(resp=>resp)
 }
+
+export const resetPassword=(data)=>{
+  return myAxios.post("/users/forgetPassword",data).then(resp=>resp.data)
+}

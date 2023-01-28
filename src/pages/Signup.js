@@ -75,16 +75,16 @@ const Signup = () => {
   const genOtp=()=>{
     if(data.email.trim!==''&& data.email!==null){
        getOtp(data.email).then(response=>{
-         if(response.data==='failed'){
-          alert("otp could not be send");
-         }else{
+         if(response==='success'){
           alert("otp sent successfully");
+         }else{
+          alert("otp could not be send");
          }
          
        }).catch(error=>{
         alert("otp could not be send");
        })
-    }
+    } else{return}
   }
   // validate otp
   const [otp,setOtp]= useState();
@@ -101,7 +101,7 @@ const Signup = () => {
       }).catch(error=>{
         alert("otp could not be verified")
       })
-     }
+     }else{return}
   }
 
   return (
