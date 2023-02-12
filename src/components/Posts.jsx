@@ -21,6 +21,7 @@ function Posts({post={id:-1 ,title:"this is default post title",content:"This is
  
  
   return (
+   
    <Card className='border-0 shadow-sm mb-3 mt-3'>
        <CardBody>
         <h2>{post.title}</h2>
@@ -41,6 +42,7 @@ function Posts({post={id:-1 ,title:"this is default post title",content:"This is
         </div>
        </CardBody>
    </Card>
+ 
   )
 }
 

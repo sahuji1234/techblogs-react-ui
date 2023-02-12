@@ -6,7 +6,7 @@ import Base from "../components/Base"
 import { createComment, loadPost } from "../services/post-service"
 import { BASE_URL } from "../services/Helper"
 import { getCurrentUserDetails, isLoggedIn } from "../auth";
-
+import image from "../img/login.jpg";
 const PostPage=()=>{
     
 // fetch current user details
@@ -64,6 +64,14 @@ const [post,setPost]=useState(null);
  
 
     return(
+
+        <div
+        style={{ backgroundImage:`url(${image})` ,
+        height:'100%',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',} }
+        >
+
        <Base>
           
         <Container className="mt-4">
@@ -113,7 +121,7 @@ const [post,setPost]=useState(null);
                 {size:9,
                 offset:1}
             }>
-                <h3>Comments({post ? post.comments.length:0})</h3>
+                <h3 className="text-white">Comments({post ? post.comments.length:0})</h3>
                 {
                    post  && post.comments.map((c,index)=>(
                        <Card className="mt-2 border-0" key={index}>
@@ -149,6 +157,7 @@ const [post,setPost]=useState(null);
         </Row>
      </Container>
        </Base>
+       </div>
     )
 }
 
