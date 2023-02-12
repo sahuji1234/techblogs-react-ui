@@ -77,7 +77,7 @@ const updatedPost=(event)=>{
 const updateHtml=()=>{
         return(
             <div className="wrapper">
-           <Card className="shadow-sm border-0 mt-2">
+            <Card className="shadow-sm border-0 mt-2">
             <CardBody>
                 {/* {JSON.stringify(post)} */}
             <h3>update post from here !!</h3>
@@ -85,7 +85,7 @@ const updateHtml=()=>{
               <div className="my-3">
                 <Label for="title">Post title</Label>
                 <Input type="text"
-                 id ="title"
+                id ="title"
                 placeholder="enter here" 
                 className="rounded-0"
                 name="title"
@@ -99,11 +99,10 @@ const updateHtml=()=>{
 
                 <JoditEditor 
                 ref={editor}
-                value={post.content}
-                
+                value={post.content}               
                 onChange={(newContent=>setPost({...post,content:newContent}))}
-
                 />
+
               </div>
                  {/* file field */}
               <div className="mt-3">
@@ -146,7 +145,7 @@ const updateHtml=()=>{
     return (
     <Base>
      <div style={{ backgroundImage:`url(${image})` ,
-                   height:'90vh',
+                   height:'100%',
                    backgroundSize: 'cover',
                    backgroundRepeat: 'no-repeat',} }>
       <Container>
