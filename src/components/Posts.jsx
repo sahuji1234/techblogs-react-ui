@@ -11,7 +11,7 @@ function Posts({post={id:-1 ,title:"this is default post title",content:"This is
  
  const userContextData=useContext(userContext)
 
-  const [login,setLogin] = useState(null)
+ const [login,setLogin] = useState(null)
  const [user,setUser] = useState(null)
  useEffect(()=>{
    setUser(getCurrentUserDetails())
@@ -24,10 +24,10 @@ function Posts({post={id:-1 ,title:"this is default post title",content:"This is
    <Card className='border-0 shadow-sm mb-3 mt-3'>
        <CardBody>
         <h2>{post.title}</h2>
-        <CardText dangerouslySetInnerHTML={{__html:post.content.substring(0,30)+"..."}}>
+        <CardText dangerouslySetInnerHTML={{__html:post.content.substring(0,100)+"..."}}>
         </CardText>
         <div>
-            <Link className='btn btn-secondary border-0' to={'/user/post/'+post.postId}>Read more...</Link>
+            <Link className='btn btn-secondary border-0' to={'/post/'+post.postId}>Read more...</Link>
             
           {
             

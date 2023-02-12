@@ -98,7 +98,7 @@ useEffect(
             {   
                 categories.map((category)=>(
 
-                  <DropdownItem>
+                  <DropdownItem key={category.categoryId}>
                     <NavLink tag={ReactLink} to={'/user/category/'+category.categoryId} active>
                     {category.categoryTitle}
                     </NavLink>

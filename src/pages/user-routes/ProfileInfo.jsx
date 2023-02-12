@@ -33,15 +33,14 @@ const userView=()=>{
 }
 
   return (
-   <Base>
-     <div style={{ backgroundImage:`url(${image})` ,
-    height:'90vh',
+    <div style={{ backgroundImage:`url(${image})` ,
+    height:'100vh',
     backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',} }>
+    backgroundRepeat: 'no-repeat'} }>
+   <Base>
     {user ?userView():'loading user data'}
-
-    </div>
    </Base>
+   </div>
   )
 }
 

@@ -28,13 +28,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/about" element={<About />} />
-          
+          <Route path="/post/:postId" element={<PostPage />} />
         
           <Route path="/user" element={<PrivateRoute/>} >
           <Route path ="new-feed" element={<NewFeed/>} />
           <Route path="dashboard" element={<Userdashboard/>} />
           <Route path="profile-info/:userId" element={<ProfileInfo />} />
-          <Route path="post/:postId" element={<PostPage />} />
+          
           <Route path="category/:categoryId" element={<PrivateCategory/>} />
           <Route path="update-blog/:blogId" element={<UpdateBlog/>} />
          </Route>

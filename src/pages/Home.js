@@ -1,104 +1,68 @@
 import Base from "../components/Base";
 import React, { useState } from 'react';
-import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption,
-} from 'reactstrap';
+import image from "../img/login.jpg";
+import { useEffect } from "react";
+import { loadAllPoosts } from "../services/post-service";
+import Posts from '../components/Posts'
+import { Col, Row } from "reactstrap";
+const Home = () => {
 
-const items = [
-  {
-    src: 'https://picsum.photos/id/123/1400/607',
-    altText: 'Slide 1',
-    caption: '“Love all, trust a few, do wrong to none.”',
-    key: 1,
-  },
-  {
-    src: 'https://picsum.photos/id/456/1400/607',
-    altText: 'Slide 2',
-    caption: '“You call it madness, but I call it love.”',
-    key: 2,
-  },
-  {
-    src: 'https://picsum.photos/id/678/1400/607',
-    altText: 'Slide 3',
-    caption: '“We can only learn to love by loving.”',
-    key: 3,
-  },
-];
+  const [postContent,setPostContent]= useState({
+    content:[],
+    totalPages:'',
+    totalElements:'',
+    pageSize:'',
+    lastPage:false,
+    pageNumber:''
+  
+   })
+useEffect(()=>{
+ loadAllPoosts(0,5).then((data)=>{
+ 
+setPostContent({
+   content:[...postContent.content,...data.content],
+   totalPages:data.totalPages,
+   totalElements:data.totalElements,
+   pageSize:data.pageSize,
+   lastPage:data.lastPage,
+   pageNumber:data.pageNumber
+})
+    console.log(postContent.content)
 
-const Home = (args) => {
+ }).catch((error)=>{
+         console.log(error);
+ })
 
-
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
-
-  const next = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const previous = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const goToIndex = (newIndex) => {
-    if (animating) return;
-    setActiveIndex(newIndex);
-  };
-
-  const slides = items.map((item) => {
-    return (
-      <CarouselItem
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        key={item.src}
-      >
-        <img src={item.src} alt={item.altText} />
-        <CarouselCaption
-          captionText={item.caption}
-          captionHeader={item.caption}
-        />
-      </CarouselItem>
-    );
-  });
-
+},[])
 
   return (
-    <Base>
-   
-
-   <Carousel
-      activeIndex={activeIndex}
-      next={next}
-      previous={previous}
-      {...args}
+    <div
+    style={{ backgroundImage:`url(${image})` ,
+    height:'100%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',} }
     >
-      <CarouselIndicators
-        items={items}
-        activeIndex={activeIndex}
-        onClickHandler={goToIndex}
-      />
-      {slides}
-      <CarouselControl
-        direction="prev"
-        directionText="Previous"
-        onClickHandler={previous}
-      />
-      <CarouselControl
-        direction="next"
-        directionText="Next"
-        onClickHandler={next}
-      />
-    </Carousel>
+    <div  className="container-fluid">
+    <Base>
+    <Row>
+      <Col 
+      md={{
+        size:10,
+        offset:1
+      }}
+      >
+        
 
-    
+      {
+        postContent.content && postContent.content.map((post)=>(
+        <Posts post={post} deletePost={''} key={post.postId}/>
+      ))
+     }
+      </Col>
+    </Row> 
     </Base>
+    </div>
+  </div>
   );
 };
 

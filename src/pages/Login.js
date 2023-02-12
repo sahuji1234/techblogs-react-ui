@@ -3,7 +3,7 @@ import { Form, Label, Input, FormGroup, Button, Col, Row } from "reactstrap";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { signIn, validateOtp } from "../services/user-service";
+import { checkUserExist, signIn, validateOtp } from "../services/user-service";
 import { doLogin } from "../auth/index";
 import { useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
@@ -91,19 +91,29 @@ const Login = () => {
     otp:''
   })
 
+ 
+  
   const getOtp=()=>{
-    if(forgetPasswordData.username!==''){
-     generateOtp(forgetPasswordData.username).then(resp=>{
-      if(resp==='failed'){
-        alert("otp could not be sent");
-      } else{
-        alert("otp sent")
-      }
-      
-     }).catch(error=>{
-      alert("something went wrong");
-     })
-    } else {return}
+
+    // if(checkUserExist(forgetPasswordData.username)===true){
+      if(forgetPasswordData.username!==''){
+        generateOtp(forgetPasswordData.username).then(resp=>{
+         if(resp==='failed'){
+           alert("otp could not be sent");
+         } else{
+           alert("otp sent")
+         }
+       
+        }).catch(error=>{
+         alert("something went wrong");
+        })
+        }
+        else {return}
+   // }
+    // else{
+    //   alert("user not found")
+    //   return
+    // }
   }
 const verifyOtp=()=>{
   if(forgetPasswordData.username!==''&& forgetPasswordData.otp!==''){
@@ -126,13 +136,13 @@ const [updatePassword,setUpdatePassword] = useState({
   password:''
 })
 const resetpassword=()=>{
-  setUpdatePassword({...updatePassword,["username"]:forgetPasswordData.username});
+  // setUpdatePassword({...updatePassword,["username"]:forgetPasswordData.username});
   updatePassword.username=forgetPasswordData.username;
   setUpdatePassword({...updatePassword,["password"]:forgetPasswordData.password});
   console.log(updatePassword)
   resetPassword(updatePassword).then(resp=>{
     console.log(resp.data)
-      alert("otp verified successfully")
+      alert("password changed successfully")
       setForgetPassOtpVerify(false)
       toggle()
     

@@ -48,11 +48,11 @@ function deletePost(post){
 
 
   return (
-    <Base>
-        <div style={{ backgroundImage:`url(${image})` ,
-    height:'120%',
+    <div style={{ backgroundImage:`url(${image})` ,
+    height:'100%',
     backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',} }>
+    backgroundRepeat: 'no-repeat'} }>
+    <Base>
     <Container>
         <AddPost/>
         {/* <PrivateNewFeed/> */}
@@ -66,8 +66,8 @@ function deletePost(post){
           })
         }
     </Container> 
-    </div>
     </Base>
+    </div>
 
   )
 }

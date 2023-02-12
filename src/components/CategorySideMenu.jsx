@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Col, Container, Row } from 'reactstrap'
 import { loadPostsByCategoryId ,deletePostService } from '../services/post-service'
 import Posts from './Posts'
-import image from "../img/login.jpg";
+
 
 function CategorySideMenu() {
 
@@ -36,10 +36,7 @@ function deletePost(post){
   }
 
   return (
-    <div style={{ backgroundImage:`url(${image})` ,
-    height:'100%',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',} }>
+
           <Container className='mt-3'>
            <Row>
                <Col md={10} className='pt-5'>
@@ -47,7 +44,7 @@ function deletePost(post){
                  {
                     posts && posts.map((post,index)=>{
                         return(
-                            <Posts deletePost={deletePost} post={post} />
+                            <Posts deletePost={deletePost} post={post} key={post.postId}/>
                         )
                     })
                  }
@@ -57,7 +54,7 @@ function deletePost(post){
                </Col>
            </Row>
           </Container>
-   </div>
+ 
   )
 }
 

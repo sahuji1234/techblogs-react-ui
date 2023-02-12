@@ -66,7 +66,7 @@ const [post,setPost]=useState(null);
     return(
        <Base>
           
-     <Container className="mt-4">
+        <Container className="mt-4">
         <Link to='/user/new-feed'>feed</Link> / {post && (<Link to="">{post.title}</Link>)}
 
         <Row>

@@ -6,16 +6,18 @@ import image from "../../img/login.jpg";
 const NewFeed=()=> {
   return (
   
-    <Base>
-      <div  style={{ backgroundImage:`url(${image})` ,
+    <div  style={{ backgroundImage:`url(${image})` ,
     height:'100%',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',} }>
+    <Base>
+     
     <Container className="mt-3">
     <PrivateNewFeed/>
     </Container>
-    </div>
+    
     </Base>
+    </div>
    
   )
 }
