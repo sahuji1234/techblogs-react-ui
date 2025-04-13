@@ -11,7 +11,8 @@ import { Button, Card, CardBody,Container,Form, Input, Label} from "reactstrap";
 import JoditEditor from 'jodit-react';
 import { useRef } from 'react'
 import image from "../img/login.jpg";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function UpdateBlog() {
 
@@ -47,7 +48,7 @@ function UpdateBlog() {
  useEffect(()=>{
         if(post){
             if(post.user.id != object.user.data.id){
-                alert("this is not your post !!")
+                toast.warning("this is not your post !!")
                 navigate("/user/new-feed")
             }
         }
@@ -66,17 +67,18 @@ const updatedPost=(event)=>{
   event.preventDefault()
   console.log(post)
   updatePost({...post,category:{categoryId:post.categoryId}},post.postId).then(res=>{
-    console.log(res)
-  alert("post updated successfully")
+    console.log(res);
+  toast.success("post updated successfully")
   }).catch(error=>{
     console.log(error);
-    alert("error in updating ")
+  toast.error("error in updating ")
   })
 }
 //=====================================================================================================================>
 const updateHtml=()=>{
         return(
             <div className="wrapper">
+              <ToastContainer />
             <Card className="shadow-sm border-0 mt-2">
             <CardBody>
                 {/* {JSON.stringify(post)} */}

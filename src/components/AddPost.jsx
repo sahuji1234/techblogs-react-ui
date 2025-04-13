@@ -5,8 +5,8 @@ import { loadAllCategories } from "../services/category-service";
 import JoditEditor from 'jodit-react';
 import {createPost as doCreatePost, uplodaPostImage} from "../services/post-service";
 import { getCurrentUserDetails } from "../auth";
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast } from "react-toastify";
 
 
 const AddPost=()=>{
@@ -90,7 +90,7 @@ const createPost=(event)=>{
         })
         // console.log(post)
      }).catch((error)=>{
-        alert("opps something went wrong")
+        toast.error("opps something went wrong")
         alert(error)
      })
 }
@@ -103,6 +103,7 @@ const handleFileChange=(event)=>{
 
 return(
         <div className="wrapper">
+            <ToastContainer />
            <Card className="shadow-sm border-0 mt-2">
             <CardBody>
                 {/* {JSON.stringify(post)} */}

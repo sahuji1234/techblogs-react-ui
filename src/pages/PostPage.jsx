@@ -7,6 +7,8 @@ import { createComment, loadPost } from "../services/post-service"
 import { BASE_URL } from "../services/Helper"
 import { getCurrentUserDetails, isLoggedIn } from "../auth";
 import image from "../img/login.jpg";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const PostPage=()=>{
     
 // fetch current user details
@@ -32,7 +34,7 @@ const [post,setPost]=useState(null);
        console.log(data)
     }).catch(error=>{
         console.log(error)
-        alert("oops something went wrong "+error)
+        toast.error("oops something went wrong "+error)
     })
  },[])
 
@@ -45,11 +47,11 @@ const [post,setPost]=useState(null);
         return
     }
     if(!isLoggedIn()){
-        alert('you need to log in first')
+        toast.warning('you need to log in first')
         return
     }
     createComment(comment,post.postId,user.id).then(data=>{
-       alert('commented on post successfully')
+       toast.success('commented on post successfully')
        setPost({
         ...post, comments:[...post.comments,data.data]
        })
@@ -69,14 +71,14 @@ const [post,setPost]=useState(null);
         style={{ backgroundImage:`url(${image})` ,
         height:'100%',
         backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',} }
+        backgroundRepeat: 'no-repeat'} }
         >
 
        <Base>
           
         <Container className="mt-4">
         <Link to='/user/new-feed'>feed</Link> / {post && (<Link to="">{post.title}</Link>)}
-
+        <ToastContainer />
         <Row>
             <Col md={{
                 size:12

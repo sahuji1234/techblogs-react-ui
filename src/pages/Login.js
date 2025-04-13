@@ -99,13 +99,13 @@ const Login = () => {
       if(forgetPasswordData.username!==''){
         generateOtp(forgetPasswordData.username).then(resp=>{
          if(resp==='failed'){
-           alert("otp could not be sent");
+           toast.error("otp could not be sent");
          } else{
-           alert("otp sent")
+           toast.success("otp sent")
          }
        
         }).catch(error=>{
-         alert("something went wrong");
+         toast.error("something went wrong");
         })
         }
         else {return}
@@ -119,14 +119,14 @@ const verifyOtp=()=>{
   if(forgetPasswordData.username!==''&& forgetPasswordData.otp!==''){
         validateOtp(forgetPasswordData.username,forgetPasswordData.otp).then(resp=>{
           if(resp.data==='Entered Otp is valid'){
-            alert(resp.data)
+            toast.success(resp.data)
             setForgetPassOtpVerify(true)
           }else{
-            alert("wrong otp");
+            toast.error("wrong otp");
           }
        
         }).catch(error=>{
-          alert("something went wrong");
+          toast.error("something went wrong");
         })
   } else{ return}
 }
@@ -135,25 +135,28 @@ const [updatePassword,setUpdatePassword] = useState({
   username:'',
   password:''
 })
-const resetpassword=()=>{
-  // setUpdatePassword({...updatePassword,["username"]:forgetPasswordData.username});
-  updatePassword.username=forgetPasswordData.username;
-  setUpdatePassword({...updatePassword,["password"]:forgetPasswordData.password});
-  console.log(updatePassword)
-  resetPassword(updatePassword).then(resp=>{
-    console.log(resp.data)
-      alert("password changed successfully")
-      setForgetPassOtpVerify(false)
-      toggle()
-    
-  
-  }).catch(error=>{
 
-    alert("user not found")
-  
-  })
- 
-}
+// 
+
+const resetpassword = () => {
+  const updated = {
+    ...updatePassword,
+    username: forgetPasswordData.username,
+    password: forgetPasswordData.password
+  };
+
+  setUpdatePassword(updated);
+  console.log(updated);
+
+  resetPassword(updated).then(resp => {
+    console.log(resp.data);
+    toast.success("Password changed successfully");
+    setForgetPassOtpVerify(false);
+    toggle();
+  }).catch(error => {
+    toast.warning("User not found");
+  });
+};
 
   return (
     <div  style={{ backgroundImage:`url(${image})` ,

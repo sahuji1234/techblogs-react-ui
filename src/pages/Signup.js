@@ -76,13 +76,13 @@ const Signup = () => {
     if(data.email.trim!==''&& data.email!==null){
        getOtp(data.email).then(response=>{
          if(response==='success'){
-          alert("otp sent successfully");
+          toast.success("otp sent successfully");
          }else{
-          alert("otp could not be send");
+          toast.error("otp could not be send");
          }
          
        }).catch(error=>{
-        alert("otp could not be send");
+        toast.error("otp could not be send");
        })
     } else{return}
   }
@@ -92,14 +92,14 @@ const Signup = () => {
      if(data.email.trim!=='' && otp!==''){
       validateOtp(data.email,otp).then(response=>{
        if(response.data==='Entered Otp is valid'){ 
-        alert("otp validate successfully");
+        toast.success("otp validate successfully");
         setOtpverify(true);
       } else{
-        alert("wrong otp");
+        toast.error("wrong otp");
       }
 
       }).catch(error=>{
-        alert("otp could not be verified")
+        toast.error("otp could not be verified")
       })
      }else{return}
   }

@@ -33,8 +33,7 @@ function App() {
           <Route path="/user" element={<PrivateRoute/>} >
           <Route path ="new-feed" element={<NewFeed/>} />
           <Route path="dashboard" element={<Userdashboard/>} />
-          <Route path="profile-info/:userId" element={<ProfileInfo />} />
-          
+          <Route path="profile-info/:userId" element={<ProfileInfo />} />         
           <Route path="category/:categoryId" element={<PrivateCategory/>} />
           <Route path="update-blog/:blogId" element={<UpdateBlog/>} />
          </Route>
