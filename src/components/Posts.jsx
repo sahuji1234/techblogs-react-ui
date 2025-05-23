@@ -30,7 +30,7 @@ function Posts({post={id:-1 ,title:"this is default post title",content:"This is
         <div>
             <Link className='btn btn-secondary border-0' to={'/post/'+post.postId}>Read more...</Link>
             
-          {
+        {
             
             userContextData.user.login && (user && user.id===post.user.id ? <Button onClick={()=>deletePost(post)} className='ms-2' color='danger'>Delete</Button> :'')
          }

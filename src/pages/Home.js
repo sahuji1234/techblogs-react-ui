@@ -2,7 +2,7 @@ import Base from "../components/Base";
 import React, { useState } from 'react';
 import image from "../img/login.jpg";
 import { useEffect } from "react";
-import { loadAllPoosts } from "../services/post-service";
+import { deletePostService, loadAllPoosts } from "../services/post-service";
 import Posts from '../components/Posts'
 import { Col, Row } from "reactstrap";
 const Home = () => {
@@ -55,7 +55,7 @@ setPostContent({
 
       {
         postContent.content && postContent.content.map((post)=>(
-        <Posts post={post} deletePost={''} key={post.postId}/>
+        <Posts post={post} deletePost={deletePostService} key={post.postId}/>
       ))
      }
       </Col>
